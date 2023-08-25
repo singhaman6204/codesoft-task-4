@@ -1,0 +1,28 @@
+import pandas as pd
+
+# Sample data: User preferences for items
+data = {
+    'user_id': [1, 1, 1, 2, 2, 3, 3, 3, 3],
+    'item_id': ['A', 'B', 'C', 'A', 'B', 'B', 'C', 'D', 'E']
+}
+
+df = pd.DataFrame(data)
+
+# Count the occurrences of each item
+item_popularity = df['item_id'].value_counts().reset_index()
+item_popularity.columns = ['item_id', 'popularity']
+
+# Display the popularity of items
+print("Item Popularity:")
+print(item_popularity)
+
+# Function to recommend popular items
+def recommend_popular_items(user_id, num_recommendations=5):
+    recommendations = item_popularity['item_id'].head(num_recommendations)
+    return recommendations
+
+# Get recommendations for a specific user
+user_id = 1
+recommended_items = recommend_popular_items(user_id)
+print(f"\nRecommended items for user {user_id}:")
+print(recommended_items)
